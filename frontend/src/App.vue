@@ -3,7 +3,7 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <div id="app" class="h-screen flex flex-col bg-slate-900">
+  <div id="app" class="h-screen flex flex-col bg-[#121313]">
     <!-- Row 1: Navbar -->
     <Navbar />
 
