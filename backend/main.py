@@ -3,11 +3,12 @@ from flask_restx import Api
 from database.db import db
 from database.models.IncidentLogModel import setup_routes as setup_incident_routes
 from database.models.HoneyPotModel import setup_routes as setup_honeypot_routes
-
+from flask_cors import CORS
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 

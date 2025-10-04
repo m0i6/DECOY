@@ -3,7 +3,7 @@
     <h2 class="text-lg font-semibold text-white mb-4">Honeypots</h2>
     <ul>
       <li
-        v-for="(sensor, index) in uniqueSensors"
+        v-for="sensor in uniqueSensors"
         :key="sensor"
         @click="selectSensor(sensor)"
         class="cursor-pointer px-3 py-2 mb-2 rounded-lg"
@@ -16,18 +16,30 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import mockData from '../data/mockCowrieEvents.json'
-const selectedSensor = ref(null)
+import { ref, computed, onMounted } from 'vue'
+import { getHoneypots } from '../backendProxy.ts'
 
-// Alle eindeutigen Honeypots (Sensor-Namen)
+const selectedSensor = ref(null)
+const honeypots = ref([])
+
+// Fetch honeypots once the component mounts
+onMounted(async () => {
+  try {
+    console.log("gethoneypots")
+    console.log(await getHoneypots())
+    honeypots.value = await getHoneypots()
+  } catch (err) {
+    console.error('Failed to fetch honeypots:', err)
+  }
+})
+
+// Derived list of unique sensors
 const uniqueSensors = computed(() => {
-  return Array.from(new Set(mockData.map(e => e.sensor)))
+  return Array.from(honeypots.value.map(e => e.name))
 })
 
 function selectSensor(sensor) {
   selectedSensor.value = sensor
   console.log('Selected sensor:', sensor)
-  // später um Detailansicht zu öffnen
 }
 </script>

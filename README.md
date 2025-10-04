@@ -14,6 +14,16 @@ pip3 install -r requirements.txt
 ```
 - for starting the server you only need to run the main.py file
 
+
+{
+  "name": "asdf",
+  "server_category": "database",
+  "description": "string",
+  "creation_date": "2025-10-04T19:09:03.796Z",
+  "status": "critical",
+  "geolocation": "string"
+}
+
 ## Honeypot
 
 ### Setup
