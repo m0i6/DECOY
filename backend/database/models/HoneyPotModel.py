@@ -68,8 +68,9 @@ def setup_routes(api):
             server_category = data.get("server_category")
             description = data.get("description")
             creation_date = datetime.utcnow()
+            geolocation = data.get("geolocation")
             name = data.get("name")
-            new_item = HoneyPotModel(name=name, creation_date=creation_date, status=status, server_category=server_category, description=description)
+            new_item = HoneyPotModel(name=name, creation_date=creation_date, status=status, server_category=server_category, description=description, geolocation=geolocation)
             db.session.add(new_item)
             db.session.commit()
             return new_item, 201

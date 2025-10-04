@@ -6,6 +6,7 @@ import { ref } from 'vue'
 const name = ref<String>('')
 const serverType = ref<String>('ssh server')
 const description = ref<String>('')
+const geolocation = ref<String>('')
 const behaviours = ref<String[]>([])
 const newBehaviour = ref<String>('')
 
@@ -20,6 +21,11 @@ function removeBehaviour(index: number) {
     behaviours.value.splice(index, 1)
 }
 
+function updateGeolocation(newLocation: string) {
+    console.log("setting location in parent thing ", newLocation)
+    geolocation.value = newLocation
+}
+
 function createHoneypot() {
     // Logik zum Erstellen des Honeypots
     fetch('http://localhost:5000/HoneyPots/', {
@@ -29,11 +35,12 @@ function createHoneypot() {
             name: name.value,
             behaviours: behaviours.value.join(','),
             server_category: serverType.value,
+            geolocation: geolocation.value,
             description: description.value
         })
     })
-
 }
+
 
 </script>
 
@@ -79,7 +86,7 @@ function createHoneypot() {
                 </div>
                 <button type="submit" @click="createHoneypot" class="bg-yellow-100 rounded-xl p-2 px-10 my-5 text-black">Create</button>
             </div>
-            <WorldMap widthClass="h-full w-full min-w-[300px]" />
+            <WorldMap widthClass="h-full w-full min-w-[300px]" :hasDynamicInput="true" @update-geolocation="updateGeolocation" />
         </div>
     </div>
 </template>
