@@ -1,16 +1,18 @@
 services:
-  back:
+  backend:
     image: jafber/decoy-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
     restart: always
 
-  front:
+  frontend:
     image: jafber/decoy-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     restart: always
     depends_on:
-      - back
+      - backend
+    environment:
+      - NODE_ENV=production
