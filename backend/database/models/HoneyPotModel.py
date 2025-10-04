@@ -29,15 +29,19 @@ class HoneyPotModel(db.Model):
 
     @classmethod
     def json_schema(cls):
-        return {
-                "id": fields.Integer(readonly=True),
-                "title": fields.String(required=True, description="The incident title"),
-                "category": fields.String(required=False, description="The incident category (network, hardware, software, other)"),
-                "description": fields.String(required=False, description="The incident description"),
-                "timestamp": fields.DateTime(required=False, description="The incident timestamp as unix timestamp"),
-                "severity": fields.String(required=False, description="The incident severity (critical, moderate, low)"),
-                "geolocation": fields.String(required=False, description="The incident geolocation"),
-            }
+        schema = {}
+        for column in cls.__table__.columns:
+            col_type = type(column.type).__name__
+            if col_type == "Integer":
+                field = fields.Integer(readonly=column.primary_key)
+            elif col_type == "String":
+                field = fields.String(required=not column.nullable, description=f"The incident {column.name}")
+            elif col_type == "DateTime":
+                field = fields.DateTime(required=not column.nullable, description=f"The incident {column.name} as unix timestamp")
+            else:
+                field = fields.String(required=not column.nullable, description=f"The incident {column.name}")
+            schema[column.name] = field
+        return schema
 
 def setup_routes(api):
     ns = api.namespace("HoneyPots", description="HoneyPots operations")
