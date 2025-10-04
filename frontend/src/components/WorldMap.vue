@@ -78,10 +78,7 @@ onMounted(async () => {
         .setLngLat([lon || 0, lat || 0])
         .addTo(map)
     })
-
-
   }
-
 
   // Marker aus Mockdaten
   mockData.forEach((event: any) => {
