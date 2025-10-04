@@ -3,32 +3,32 @@ from flask_restx import Api, Resource
 
 app = Flask(__name__)
 api = Api(app, version="1.0", title="My API",
-          description="A simple Flask API with Swagger UI")
+          description="Decoy app backend api")
 
-ns = api.namespace("items", description="Items operations")
+alerts = api.namespace("alerts", description="Alerts operations")
 
 ITEMS = []
 
-@ns.route("/")
-class ItemList(Resource):
+@alerts.route("/")
+class AlertList(Resource):
     def get(self):
-        """List all items"""
+        """List all alerts"""
         return ITEMS
 
     def post(self):
-        """Create a new item"""
-        item = {"id": len(ITEMS) + 1, "name": f"Item {len(ITEMS)+1}"}
+        """Create a new alert"""
+        item = {"id": len(ITEMS) + 1, "name": f"Alert {len(ITEMS)+1}"}
         ITEMS.append(item)
         return item, 201
 
-@ns.route("/<int:id>")
-class Item(Resource):
+@alerts.route("/<int:id>")
+class Alert(Resource):
     def get(self, id):
-        """Get an item by ID"""
+        """Get an alert by ID"""
         for item in ITEMS:
             if item["id"] == id:
                 return item
-        api.abort(404, f"Item {id} not found")
+        api.abort(404, f"Alert {id} not found")
 
 if __name__ == "__main__":
     app.run(debug=True)
