@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapContainer" class="h-full w-full" style="min-height:400px;"></div>
+  <div ref="mapContainer" :class="props.widthClass" style="min-height:400px;"></div>
 </template>
 
 <script setup>
@@ -11,6 +11,10 @@ import mockData from '../data/mockCowrieEvents.json'
 
 const mapContainer = ref(null)
 let map
+
+const props = defineProps({
+  widthClass: String
+})
 
 onMounted(() => {
   map = new maplibregl.Map({
