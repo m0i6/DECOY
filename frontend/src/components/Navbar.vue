@@ -11,9 +11,9 @@
 
     <!-- Right: Navigation -->
     <div class="hidden md:flex items-center space-x-6">
-      <a href="#" class="text-slate-300 hover:text-white">Dashboard</a>
-      <a href="#" class="text-slate-300 hover:text-white">Deploy</a>
-      <a href="#" class="text-slate-300 hover:text-white">About</a>
+      <router-link to="/" class="text-slate-300 hover:text-white">Dashboard</router-link>
+      <router-link to="/deployment" class="text-slate-300 hover:text-white">Deploy</router-link>
+      <router-link to="/about" class="text-slate-300 hover:text-white">About</router-link>
     </div>
 
     <!-- Right: Actions -->
