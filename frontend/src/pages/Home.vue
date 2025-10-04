@@ -5,7 +5,7 @@ import WorldMap from '../components/WorldMap.vue'
 
 <template>
     <!-- Linke Spalte: Honeypot Liste -->
-    <div class="w-1/4 border-r border-slate-700">
+    <div class="w-1/4">
         <HoneypotList />
     </div>
 
