@@ -1,8 +1,8 @@
 from flask import Flask
-from datetime import datetime
-from flask_restx import Api, Resource, fields
+from flask_restx import Api
 from database.db import db
-from database.IncidentLogModel import IncidentLogModel
+from database.models.IncidentLogModel import setup_routes as setup_incident_routes
+from database.models.HoneyPotModel import setup_routes as setup_honeypot_routes
 
 
 
@@ -15,40 +15,9 @@ def create_app():
 
     api = Api(app, version="1.0", title="My API",
           description="Decoy app backend api")
-    ns = api.namespace("IncidentLogs", description="IncidentLogs operations")
 
-    incident_log_model = api.model("IncidentLog", {
-        "id": fields.Integer(readonly=True),
-        "title": fields.String(required=True, description="The incident title"),
-        "category": fields.String(required=False, description="The incident category (network, hardware, software, other)"),
-        "description": fields.String(required=False, description="The incident description"),
-        "timestamp": fields.DateTime(required=False, description="The incident timestamp as unix timestamp"),
-        "severity": fields.String(required=False, description="The incident severity (critical, moderate, low)"),
-    })
-
-    @ns.route("/")
-    class IncidentLogList(Resource):
-        @ns.marshal_list_with(incident_log_model)
-        def get(self):
-            return IncidentLogModel.query.all()
-
-        @ns.expect(incident_log_model)
-        @ns.marshal_with(incident_log_model, code=201)
-        def post(self):
-            data = api.payload
-            try:
-                if "timestamp" in data:
-                    timestamp = datetime.fromtimestamp(int(data.get("timestamp")))
-            except Exception as e:
-                timestamp = datetime.utcnow()
-            severity = data.get("severity")
-            category = data.get("category")
-            description = data.get("description")
-            title = data.get("title")
-            new_item = IncidentLogModel(title=title, timestamp=timestamp, severity=severity, category=category, description=description)
-            db.session.add(new_item)
-            db.session.commit()
-            return new_item, 201
+    setup_incident_routes(api)
+    setup_honeypot_routes(api)
 
     return app
 
