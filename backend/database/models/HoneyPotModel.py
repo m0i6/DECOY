@@ -67,6 +67,7 @@ def setup_routes(api):
             status = data.get("status")
             server_category = data.get("server_category")
             description = data.get("description")
+            creation_date = datetime.utcnow()
             name = data.get("name")
             new_item = HoneyPotModel(name=name, creation_date=creation_date, status=status, server_category=server_category, description=description)
             db.session.add(new_item)

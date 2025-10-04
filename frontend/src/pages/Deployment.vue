@@ -22,7 +22,7 @@ function removeBehaviour(index: number) {
 
 function createHoneypot() {
     // Logik zum Erstellen des Honeypots
-    fetch('http://localhost:8000/honeypots', {
+    fetch('http://localhost:5000/HoneyPots/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
