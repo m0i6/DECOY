@@ -1,19 +1,17 @@
 <template>
-  <nav class="bg-slate-900 border-b border-slate-700 px-6 py-3 flex items-center justify-between">
+  <nav class="bg-[#09060B] text-900 px-6 py-3 flex items-center justify-between">
     <!-- Left: Logo / Title -->
     <div class="flex items-center space-x-3">
-      <!-- Optional: Logo Icon -->
-      <svg class="h-7 w-7 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l9 4.5-9 4.5-9-4.5L12 2zm0 9l9 4.5-9 4.5-9-4.5 9-4.5z" />
-      </svg>
-      <span class="text-xl font-bold text-white">Honeypot SaaS</span>
+      <!-- Logo Icon -->
+      <img src="../assets/devic.svg" alt="Logo" class="h-7 w-7 text-cyan-400" />
+      <span class="text-xl font-bold text-white">deciv.ai</span>
     </div>
 
     <!-- Right: Navigation -->
     <div class="hidden md:flex items-center space-x-6">
-      <a href="#" class="text-slate-300 hover:text-white">Dashboard</a>
-      <a href="#" class="text-slate-300 hover:text-white">Deploy</a>
-      <a href="#" class="text-slate-300 hover:text-white">About</a>
+      <router-link to="/" class="text-slate-300 hover:text-white">Dashboard</router-link>
+      <router-link to="/deployment" class="text-slate-300 hover:text-white">Deploy</router-link>
+      <router-link to="/about" class="text-slate-300 hover:text-white">About</router-link>
     </div>
 
     <!-- Right: Actions -->
@@ -24,7 +22,6 @@
       >
         Simulate Attack
       </button>
-      <span class="hidden sm:inline text-slate-400 text-sm">Team CyberCats 🐱</span>
     </div>
   </nav>
 </template>

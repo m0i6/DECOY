@@ -15,8 +15,7 @@ let map
 onMounted(() => {
   map = new maplibregl.Map({
     container: mapContainer.value,
-    style: 'https://demotiles.maplibre.org/style.json',
-    center: [0, 20],
+    style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
     zoom: 1.5
   })
 
