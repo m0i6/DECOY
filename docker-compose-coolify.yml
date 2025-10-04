@@ -1,0 +1,16 @@
+services:
+  back:
+    image: jafber/decoy-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+
+  front:
+    image: jafber/decoy-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - back

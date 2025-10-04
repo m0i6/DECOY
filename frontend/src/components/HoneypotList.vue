@@ -5,7 +5,6 @@
     <!-- Searchbar -->
     <div class="relative mb-4">
       <input
-        v-model="searchQuery"
         type="text"
         placeholder="Search Honeypots..."
         class="w-full bg-[#1a1a1a] text-slate-200 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#EFE6A1]"
@@ -27,7 +26,7 @@
 
     <ul>
         <li
-          v-for="(sensor, index) in uniqueSensors"
+          v-for="sensor in uniqueSensors"
           :key="sensor"
           @click="selectSensor(sensor)"
           class="cursor-pointer px-3 py-2 mb-2 rounded-lg text-slate-300 transition-colors"
@@ -42,18 +41,18 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import type { ComputedRef } from 'vue'
 import { getHoneypots } from '../backendProxy.ts'
+import type { HoneypotType } from '../types.ts'
 
-const selectedSensor = ref(null)
-const honeypots = ref([])
+const selectedSensor = ref<string>("")
+const honeypots = ref<HoneypotType[]>([])
 
 // Fetch honeypots once the component mounts
 onMounted(async () => {
   try {
-    console.log("gethoneypots")
-    console.log(await getHoneypots())
     honeypots.value = await getHoneypots()
   } catch (err) {
     console.error('Failed to fetch honeypots:', err)
@@ -61,11 +60,11 @@ onMounted(async () => {
 })
 
 // Derived list of unique sensors
-const uniqueSensors = computed(() => {
+const uniqueSensors: ComputedRef<string[]> = computed(() => {
   return Array.from(honeypots.value.map(e => e.name))
 })
 
-function selectSensor(sensor) {
+function selectSensor(sensor: string) {
   selectedSensor.value = sensor
   console.log('Selected sensor:', sensor)
 }

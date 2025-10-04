@@ -26,7 +26,7 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Beispiel: Emit Event zum Parent oder Dummy-Funktion
 function simulateAttack() {
   console.log("Simulate attack triggered (Navbar)")
