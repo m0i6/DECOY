@@ -1,0 +1,20 @@
+# docker build -t jafber/decoy-backend .
+# docker run --rm -p 5000:5000 -t jafber/decoy-backend
+
+FROM python:3.12 AS backend
+RUN apt-get update
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+RUN pip install gunicorn
+
+COPY . .
+
+ENV FLASK_APP=main.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+EXPOSE 5000
+
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5000", "main:app"]

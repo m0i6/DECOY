@@ -1,11 +1,13 @@
+import type { HoneypotType, IncidentLogType } from "./types"
+
 export async function getHoneypots() {
-    const res = await fetch("http://127.0.0.1:5000/HoneyPots")
+    const res = await fetch("api/HoneyPots")
     const json = await res.json()
-    return json
+    return json as HoneypotType[]
 }
 
 export async function getIncidentLogs() {
-    const res = await fetch("http://127.0.0.1:5000/IncidentLogs")
+    const res = await fetch("api/IncidentLogs")
     const json = await res.json()
-    return json
+    return json as IncidentLogType[]
 }
