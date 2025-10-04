@@ -1,5 +1,87 @@
+<script setup lang="ts">
+import WorldMap from '../components/WorldMap.vue'
+
+import { ref } from 'vue'
+
+const name = ref<String>('')
+const serverType = ref<String>('ssh server')
+const description = ref<String>('')
+const behaviours = ref<String[]>([])
+const newBehaviour = ref<String>('')
+
+function addBehaviour() {
+    if (newBehaviour.value.trim()) {
+        behaviours.value.push(newBehaviour.value.trim())
+        newBehaviour.value = ''
+    }
+}
+
+function removeBehaviour(index: number) {
+    behaviours.value.splice(index, 1)
+}
+
+function createHoneypot() {
+    // Logik zum Erstellen des Honeypots
+    fetch('http://localhost:8000/honeypots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: name.value,
+            behaviours: behaviours.value.join(','),
+            server_category: serverType.value,
+            description: description.value
+        })
+    })
+
+}
+
+</script>
+
 <template>
     <div class="h-full w-full flex items-center justify-center text-white">
-        <h1 class="text-2xl font-bold">Deployment Page</h1>
+        <div class="border-2 border-slate-600 p-10 rounded-lg flex flex-row gap-10">
+            <div>
+                <h1 class="text-2xl font-bold">Create new honeypot</h1>
+                <label for="name" class="mt-4 block text-sm font-medium text-slate-300 min-w-[25vw]">Name</label>
+                <input type="text" id="name" v-model="name" class="mt-1 block w-full border border-slate-600 bg-transparent p-2 rounded-lg" />
+                <div class="mt-4">
+                    <label for="serverType" class="block text-sm font-medium text-slate-300">Server Type</label>
+                    <select id="serverType" v-model="serverType" class="mt-1 block w-full border border-slate-600 bg-transparent p-3 rounded-lg">
+                        <option value="" disabled>Select server category</option>
+                        <option value="web">Web server honeypot</option>
+                        <option value="database">Database honeypot</option>
+                        <option value="sftp">SFTP honeypot</option>
+                        <option value="other">Other honeypot</option>
+                    </select>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-slate-300">Behaviours</label>
+                    <ul class="mb-2">
+                        <li v-for="(behaviour, index) in behaviours" :key="index" class="flex items-center gap-2 mb-1">
+                            <span class="bg-slate-700 px-2 py-1 my-2 rounded">{{ behaviour }}</span>
+                            <button type="button" @click="removeBehaviour(index)" class="text-red-400 hover:underline text-xs">Remove</button>
+                        </li>
+                    </ul>
+                    <div class="flex gap-2">
+                        <input v-model="newBehaviour" type="text" placeholder="New behaviour" class="border border-slate-600 bg-transparent p-2 rounded-lg flex-1" />
+                        <button type="button" @click="addBehaviour" class="bg-yellow-200 text-black rounded-lg px-4 py-2">Add</button>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label for="description" class="block text-sm font-medium text-slate-300">Description</label>
+                    <input
+                        type="text"
+                        id="description"
+                        v-model="description"
+                        placeholder="Enter honeypot description"
+                        class="mt-1 block w-full border border-slate-600 bg-transparent p-2 rounded-lg"
+                    />
+                </div>
+                <button type="submit" @click="createHoneypot" class="bg-yellow-100 rounded-xl p-2 px-10 my-5 text-black">Create</button>
+            </div>
+            <WorldMap widthClass="h-full w-full min-w-[300px]" />
+        </div>
     </div>
 </template>
+
+ 

@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapContainer" class="h-full w-full" style="min-height:400px;"></div>
+  <div ref="mapContainer" :class="props.widthClass" style="min-height:400px;"></div>
 </template>
 
 <script setup lang="ts">
@@ -9,6 +9,10 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 
 const mapContainer = ref(null)
 let map: any
+
+const props = defineProps({
+  widthClass: String
+})
 
 onMounted(() => {
   if (!mapContainer?.value) return;

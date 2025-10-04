@@ -11,7 +11,7 @@ import WorldMap from '../components/WorldMap.vue'
 
     <!-- Rechte Spalte: Map nimmt Rest ein -->
     <div class="relative flex-1">
-        <WorldMap />
+        <WorldMap widthClass="h-full w-full" />
 
         <!-- KPI Overlay -->
         <div class="absolute top-4 right-4 flex flex-col gap-4 w-48">

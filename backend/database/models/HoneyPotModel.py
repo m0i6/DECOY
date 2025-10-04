@@ -8,7 +8,7 @@ class ServerCategoryType(TypeDecorator):
     impl = String(20)
 
     def process_bind_param(self, value, dialect):
-        allowed = {'web', 'database', 'application', 'other'}
+        allowed = {'web', 'database', 'sftp', 'other'}
         if value is not None and value not in allowed:
             raise ValueError(f"Invalid server category: {value}")
         return value
@@ -26,6 +26,7 @@ class HoneyPotModel(db.Model):
     creation_date = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     status = db.Column(db.String(20), nullable=False, default="open")
     geolocation = db.Column(db.String(100), nullable=True)
+    behaviors = db.Column(db.String(500), nullable=True)  # Comma-separated list of behaviors
 
     @classmethod
     def json_schema(cls):
