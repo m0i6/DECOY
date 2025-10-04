@@ -6,9 +6,6 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-
-import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css'
-
 import mockData from '../data/mockCowrieEvents.json'
 import { getHoneypots } from '../backendProxy'
 
