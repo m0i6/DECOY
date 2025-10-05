@@ -40,16 +40,16 @@ What you’ll see as the “attacker”: the server’s banner printed to stderr
 
 > All examples assume `<HOST>` is your honeypot and `<PORT>` is `LISTEN_PORT`.
 
-| Probe command                                                                                                             | What it simulates (short)                  | Expected classification                                 | 
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------- |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-OpenSSH_9.6"`                                                                    | A normal OpenSSH client touching the port  | `OpenSSH / ssh_ident`                                   |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-Paramiko_2.11.0"`                                                                | Scripted/automation scanner using Paramiko | `Paramiko / ssh_ident`                                  |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-libssh_0.10.6"`                                                                  | Tools using libssh                         | `libssh / ssh_ident`                                    |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-libssh2_1.11.0"`                                                                 | Tools using libssh2                        | `libssh2 / ssh_ident`                                   |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-Go"`                                                                             | Go‑based SSH libraries/scanners            | `Go / ssh_ident`                                        |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-Nmap"`                                                                           | A scan that identifies as Nmap             | `Nmap / ssh_ident` (may add small delay)                |
-| `python3 probe.py <HOST> <PORT> "SSH-2.0-Test"`                                                                           | Generic/unknown SSH client string          | `generic / ssh_ident`                                   |
-| **Rate‑limit test:**<br>`for i in {1..80}; do python3 probe.py <HOST> <PORT> "SSH-2.0-Test" >/dev/null 2>&1 & done; wait` | Bursty scans from one IP                   | `family varies`, `rate_limited: true` if over threshold |
+| Probe command                                                                                                             | What it simulates (short)                  | Expected classification                                 | Severity |
+| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------- | ---------------- |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-OpenSSH_9.6"`                                                                    | A normal OpenSSH client touching the port  | `OpenSSH / ssh_ident`                                   | moderate         |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-Paramiko_2.11.0"`                                                                | Scripted/automation scanner using Paramiko | `Paramiko / ssh_ident`                                  | moderate         |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-libssh_0.10.6"`                                                                  | Tools using libssh                         | `libssh / ssh_ident`                                    | moderate         |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-libssh2_1.11.0"`                                                                 | Tools using libssh2                        | `libssh2 / ssh_ident`                                   | moderate         |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-Go"`                                                                             | Go‑based SSH libraries/scanners            | `Go / ssh_ident`                                        | moderate         |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-Nmap"`                                                                           | A scan that identifies as Nmap             | `Nmap / ssh_ident` (may add small delay)                | moderate         |
+| `python3 probe.py <HOST> <PORT> "SSH-2.0-Test"`                                                                           | Generic/unknown SSH client string          | `generic / ssh_ident`                                   | moderate         |
+| **Rate‑limit test:**<br>`for i in {1..80}; do python3 probe.py <HOST> <PORT> "SSH-2.0-Test" >/dev/null 2>&1 & done; wait` | Bursty scans from one IP                   | `family varies`, `rate_limited: true` if over threshold | **high**         |
 
 **Client experience:** In all cases, the client first sees the honeypot’s SSH banner; the connection then closes shortly after the probe sends its identification line. No authentication is attempted or captured.
 
