@@ -90,10 +90,10 @@ onMounted(async () => {
     container: mapContainer.value || '',
     style: "https://api.maptiler.com/maps/darkmatter/style.json?key=oMCNJnPX9vPcFLw6GzlB",
     zoom: 3.5,
-    center: [15, 50] // starting position [lng, lat]
+    center: [15, 50], // starting position [lng, lat]
   })
-  map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
-  map.addControl(new maplibregl.ScaleControl(), 'bottom-right')
+  // map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
+  // map.addControl(new maplibregl.ScaleControl(), 'bottom-right')
   map.dragRotate.disable()
 })
 
