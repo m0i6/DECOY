@@ -36,6 +36,7 @@ __version__ = "0.4.0"
 
 LISTEN_HOST = os.getenv("LISTEN_HOST", "0.0.0.0")
 LISTEN_PORT = int(os.getenv("LISTEN_PORT", "2222"))
+HONEYPOT_ID = int(os.getenv("HONEYPOT_ID", "1"))
 CENTRAL_ALERT_URL = os.getenv(
     "CENTRAL_ALERT_URL", ""
 )  # e.g. https://alerts.example.com/honeypot
@@ -309,6 +310,7 @@ async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWrit
     alert = {
         "@timestamp": ts,
         "title": "SSH honeypot connection",
+        "honeypot_id": HONEYPOT_ID,
         "description": f"Connection from {client_ip}:{client_port}",
         "severity": severity,
         "severity_number": severity_number,

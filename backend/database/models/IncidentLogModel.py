@@ -35,6 +35,7 @@ class IncidentLogModel(db.Model):
     description = db.Column(db.String(200), nullable=True, default="No description provided")
     timestamp = db.Column(db.DateTime, nullable=True, default=db.func.current_timestamp())
     severity = db.Column(SeverityType, nullable=True, default='low')
+    honeypot_id = db.Column(db.Integer, db.ForeignKey('honey_pot_model.id'), nullable=True)
 
 
     def __repr__(self):
@@ -82,7 +83,9 @@ def setup_routes(api):
             category = data.get("category")
             description = data.get("description")
             title = data.get("title")
-            new_item = IncidentLogModel(title=title, timestamp=timestamp, severity=severity, category=category, description=description)
+            timestamp = datetime.utcnow()
+            honeypot_id = data.get("honeypot_id")
+            new_item = IncidentLogModel(title=title, timestamp=timestamp, severity=severity, category=category, description=description, honeypot_id=honeypot_id)
             db.session.add(new_item)
             db.session.commit()
             return new_item, 201
