@@ -24,7 +24,7 @@ function selectSensor(h: HoneypotType) {
 </script>
 
 <template>
-  <div class="bg-[#121313] h-full p-4">
+  <div class="bg-[#121313] h-screen overflow-scroll p-4">
     <h2 class="text-xl font-semibold text-amber-200 mb-4">Honeypots</h2>
 
     <!-- Searchbar -->
