@@ -97,12 +97,6 @@ onMounted(async () => {
   map.dragRotate.disable()
   map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
   map.addControl(new maplibregl.ScaleControl(), 'bottom-left')
-  // Optional: add a geolocate control
-  geolocateControl = new maplibregl.GeolocateControl({
-    positionOptions: { enableHighAccuracy: true },
-    trackUserLocation: true,
-  })
-  map.addControl(geolocateControl)
 })
 
 const setupDynamicInput = () => {
