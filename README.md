@@ -40,7 +40,7 @@ pip3 install -r requirements.txt
 To run honeypot:
 
 ```bash
-CENTRAL_ALERT_URL=http://localhost:5000/IncidentLogs/ LISTEN_PORT=2222 python pot.py
+HONEYPOT_ID=test123 CENTRAL_ALERT_URL=http://localhost:5000/IncidentLogs/ LISTEN_PORT=2222 python pot.py
 ```
 
 Then when attacker does `ssh -p 2222 root@localhost`, honeypot alerts server

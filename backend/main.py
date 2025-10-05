@@ -4,11 +4,15 @@ from database.db import db
 from database.models.IncidentLogModel import setup_routes as setup_incident_routes
 from database.models.HoneyPotModel import setup_routes as setup_honeypot_routes
 from flask_cors import CORS
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+    )
+    CORS(app, origins=["http://localhost:5173"])
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
