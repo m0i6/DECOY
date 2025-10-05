@@ -15,5 +15,6 @@ export interface IncidentLogType {
     category: string,
     description: string,
     timestamp: string,
-    severity: string
+    severity: string,
+    honeypot_id: number
 }
