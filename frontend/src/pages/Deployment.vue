@@ -79,17 +79,17 @@ function createHoneypot() {
 
 <template>
     <div class="h-full w-full flex items-center justify-center text-white flex-col">
-        <div class="border-2 border-slate-600 p-10 rounded-lg ">
+        <div class="border border-[#464746] p-10 rounded-lg">
             <div class="flex flex-row gap-10">
                 <div>
                     <h1 class="text-2xl font-bold">Create new honeypot</h1>
-                    <label for="name" class="mt-4 block text-sm font-medium text-slate-300 min-w-[25vw]">Name</label>
+                    <label for="name" class="mt-4 block text-sm font-medium text-[#6D6D6D] min-w-[25vw]">Name</label>
                     <input type="text" id="name" v-model="name"
-                        class="mt-1 block w-full border border-slate-600 bg-transparent p-2 rounded-lg" />
+                        class="mt-1 block w-full border border-[#464746] bg-transparent p-2 rounded-lg" />
                     <div class="mt-4">
-                        <label for="serverType" class="block text-sm font-medium text-slate-300">Server Type</label>
+                        <label for="serverType" class="block text-sm font-medium text-[#6D6D6D]">Server Type</label>
                         <select id="serverType" v-model="serverType"
-                            class="mt-1 block w-full border border-slate-600 bg-transparent p-3 rounded-lg">
+                            class="mt-1 block w-full border border-[#464746] bg-transparent p-3 rounded-lg">
                             <option value="" disabled>Select server category</option>
                             <option value="web">Web server honeypot</option>
                             <option value="database">Database honeypot</option>
@@ -98,7 +98,7 @@ function createHoneypot() {
                         </select>
                     </div>
                     <div class="mt-4">
-                        <label for="behaviours" class="block text-sm font-medium text-slate-300">Behaviour of the
+                        <label for="behaviours" class="block text-sm font-medium text-[#6D6D6D]">Behaviour of the
                             honeypot</label>
                         <div class="mt-1 flex flex-col gap-2">
                             <label class="flex items-center">
@@ -116,26 +116,26 @@ function createHoneypot() {
                         </div>
                     </div>
                     <div class="mt-4">
-                        <label class="block text-sm font-medium text-slate-300 mb-2">Behaviours</label>
+                        <label class="block text-sm font-medium text-[#6D6D6D] mb-2">Behaviours</label>
                         <div class="my-2">
                             <span v-for="(behaviour, index) in behaviours" :key="index"
-                                class="bg-slate-700 mx-1 px-2 py-1 my-3 rounded">{{ behaviour }}</span>
+                                class="bg-[#464746] mx-1 px-2 py-1 my-3 rounded">{{ behaviour }}</span>
                         </div>
                         <div class="flex gap-2 mt-4">
                             <input v-model="newBehaviour" type="text" placeholder="New behaviour"
-                                class="border border-slate-600 bg-transparent p-2 rounded-lg flex-1" />
+                                class="border border-[#464746] bg-transparent p-2 rounded-lg flex-1 placeholder:text-[#6D6D6D]" />
                             <button type="button" @click="addBehaviour"
                                 class="bg-yellow-200 text-black rounded-lg px-4 py-2">Add</button>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <label for="description" class="block text-sm font-medium text-slate-300">Description</label>
+                        <label for="description" class="block text-sm font-medium text-[#6D6D6D]">Description</label>
                         <input type="text" id="description" v-model="description"
                             placeholder="Enter honeypot description"
-                            class="mt-1 block w-full border border-slate-600 bg-transparent p-2 rounded-lg" />
+                            class="mt-1 block w-full border border-[#464746] bg-transparent p-2 rounded-lg placeholder:text-[#6D6D6D]" />
                     </div>
                     <button type="submit" @click="createHoneypot"
-                        class="bg-yellow-100 rounded-xl p-2 px-10 my-5 text-black">Create</button>
+                        class="bg-yellow-200 rounded-xl p-2 px-10 my-5 text-black">Create</button>
                 </div>
                 <WorldMap widthClass="h-full w-full min-w-[300px]" :hasDynamicInput="true"
                     @update-geolocation="updateGeolocation" />

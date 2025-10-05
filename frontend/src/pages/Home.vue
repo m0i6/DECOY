@@ -30,19 +30,19 @@ function handleSensorSelected(honeypot: HoneypotType) {
 
       <!-- KPI Overlay -->
       <div class="absolute top-4 right-4 flex flex-col gap-4 w-60">
-        <div class="bg-[#0b0b0b]/90 text-amber-100 p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
+        <div class="bg-[#0b0b0b]/90 text-amber-200 p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
           <h3 class="text-sm font-medium tracking-tight text-white/80">Total Attacks</h3>
-          <p class="text-2xl font-bold mt-1 text-amber-100 drop-shadow-[0_0_6px_rgba(255,255,200,0.5)]">134</p>
+          <p class="text-2xl font-bold mt-1 text-amber-200 drop-shadow-[0_0_6px_rgba(255,255,200,0.5)]">134</p>
         </div>
 
-        <div class="bg-[#0b0b0b]/90 text-amber-100 p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
+        <div class="bg-[#0b0b0b]/90 text-amber-200 p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
           <h3 class="text-sm font-medium tracking-tight text-white/80">Active Honeypots</h3>
-          <p class="text-2xl font-bold mt-1 text-amber-100 drop-shadow-[0_0_6px_rgba(255,255,200,0.5)]">5</p>
+          <p class="text-2xl font-bold mt-1 text-amber-200 drop-shadow-[0_0_6px_rgba(255,255,200,0.5)]">5</p>
         </div>
 
-        <div class="bg-[#0b0b0b]/90 text-amber-100 p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
+        <div class="bg-[#0b0b0b]/90 text-amber-200 p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
           <h3 class="text-sm font-medium tracking-tight text-white/80">Unique IPs</h3>
-          <p class="text-2xl font-bold mt-1 text-amber-100 drop-shadow-[0_0_6px_rgba(255,255,200,0.5)]">67</p>
+          <p class="text-2xl font-bold mt-1 text-amber-200 drop-shadow-[0_0_6px_rgba(255,255,200,0.5)]">67</p>
         </div>
       </div>
     </div>  
