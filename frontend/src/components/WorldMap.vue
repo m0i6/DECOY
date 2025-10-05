@@ -92,17 +92,9 @@ onMounted(async () => {
     style: "https://api.maptiler.com/maps/darkmatter/style.json?key=oMCNJnPX9vPcFLw6GzlB",
     zoom: 1.5
   })
-  map.addControl(new maplibregl.NavigationControl(), 'top-right')
-  map.addControl(new maplibregl.ScaleControl(), 'bottom-right')
-  map.dragRotate.disable()
   map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
   map.addControl(new maplibregl.ScaleControl(), 'bottom-left')
-  // Optional: add a geolocate control
-  geolocateControl = new maplibregl.GeolocateControl({
-    positionOptions: { enableHighAccuracy: true },
-    trackUserLocation: true,
-  })
-  map.addControl(geolocateControl)
+  map.dragRotate.disable()
 })
 
 const setupDynamicInput = () => {
