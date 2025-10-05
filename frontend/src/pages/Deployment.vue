@@ -3,7 +3,7 @@ import WorldMap from '../components/WorldMap.vue'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { BACKEND_ROOT_URL } from "../config"
+import { BACKEND_ROOT_URL } from '../config'
 
 const name = ref<String>('')
 const serverType = ref<String>('ssh server')
@@ -54,7 +54,7 @@ function createHoneypot() {
         return
     }
     // Logik zum Erstellen des Honeypots
-    fetch(BACKEND_ROOT_URL + '/HoneyPots', {
+    fetch(BACKEND_ROOT_URL + '/HoneyPots/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -102,16 +102,30 @@ function createHoneypot() {
                         </select>
                     </div>
                     <div class="mt-4">
-                        <label class="block text-sm font-medium text-slate-300">Behaviours</label>
-                        <ul class="mb-2">
-                            <li v-for="(behaviour, index) in behaviours" :key="index"
-                                class="flex items-center gap-2 mb-1">
-                                <span class="bg-slate-700 px-2 py-1 my-2 rounded">{{ behaviour }}</span>
-                                <button type="button" @click="removeBehaviour(index)"
-                                    class="text-red-400 hover:underline text-xs">Remove</button>
-                            </li>
-                        </ul>
-                        <div class="flex gap-2">
+                        <label for="behaviours" class="block text-sm font-medium text-slate-300">Behaviour of the
+                            honeypot</label>
+                        <div class="mt-1 flex flex-col gap-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" value="SSH Port open" v-model="behaviours" />
+                                <span class="ml-2">SSH Port open</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" value="SQL Injectable server" v-model="behaviours" />
+                                <span class="ml-2">SQL Injectable server</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" value="Weak sftp password" v-model="behaviours" />
+                                <span class="ml-2">Weak sftp password</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Behaviours</label>
+                        <div class="my-2">
+                            <span v-for="(behaviour, index) in behaviours" :key="index"
+                                class="bg-slate-700 mx-1 px-2 py-1 my-3 rounded">{{ behaviour }}</span>
+                        </div>
+                        <div class="flex gap-2 mt-4">
                             <input v-model="newBehaviour" type="text" placeholder="New behaviour"
                                 class="border border-slate-600 bg-transparent p-2 rounded-lg flex-1" />
                             <button type="button" @click="addBehaviour"
