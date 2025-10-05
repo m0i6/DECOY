@@ -13,7 +13,6 @@ import { BACKEND_ROOT_URL } from "../config"
 const mapContainer = ref(null)
 let map: maplibregl.Map | null = null
 let userMarker: maplibregl.Marker | null = null
-let geolocateControl: maplibregl.GeolocateControl | null = null
 const honeypots: Ref<Array<HoneypotType>> = ref([])
 const incidents: Ref<Array<IncidentLogType>> = ref([])
 const markers: Ref<Array<maplibregl.Marker>> = ref([])
@@ -90,10 +89,11 @@ onMounted(async () => {
   map = new maplibregl.Map({
     container: mapContainer.value || '',
     style: "https://api.maptiler.com/maps/darkmatter/style.json?key=oMCNJnPX9vPcFLw6GzlB",
-    zoom: 1.5
+    zoom: 3.5,
+    center: [15, 50] // starting position [lng, lat]
   })
   map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
-  map.addControl(new maplibregl.ScaleControl(), 'bottom-left')
+  map.addControl(new maplibregl.ScaleControl(), 'bottom-right')
   map.dragRotate.disable()
 })
 

@@ -18,7 +18,7 @@
     <div class="flex items-center space-x-4">
       <button
         @click="navigateToDeployment"
-        class="px-3 py-1.5 rounded-lg bg-yellow-200 hover:bg-yellow-300 text-gray-300 font-semibold text-sm"
+        class="px-3 py-1.5 rounded-lg bg-yellow-200 hover:bg-yellow-300 text-[#121313] font-semibold text-sm"
       >
         Deploy
       </button>
