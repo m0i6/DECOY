@@ -3,7 +3,7 @@ import WorldMap from '../components/WorldMap.vue'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { BACKEND_ROOT_URL } from "./config"
+import { BACKEND_ROOT_URL } from "../config"
 
 const name = ref<String>('')
 const serverType = ref<String>('ssh server')
