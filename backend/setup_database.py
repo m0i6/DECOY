@@ -137,6 +137,13 @@ with app.app_context():
         geolocation="48.7758,9.1829",  # Stuttgart
         behaviors="modbus,dnp3"
     ))
+    db.session.add(HoneyPotModel(
+        name="PGNiG - SCADA Honeypot",
+        server_category="scada",
+        description="SCADA honeypot for PGNiG (Polish Oil and Gas Company)",
+        geolocation="50.0647,19.9450",  # Kraków
+        behaviors="modbus,dnp3"
+    ))
     
     print("Added initial honeypots.")
 
