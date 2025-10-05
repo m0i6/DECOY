@@ -135,7 +135,7 @@ const setupStaticMap = async () => {
     if (!honeypot.geolocation) return
     const [lat, lon] = honeypot.geolocation.split(',').map(coord => parseFloat(coord.trim()))
     const foundIncidents = incidents.value.filter(incident => incident.honeypot_id === honeypot.id)
-    const isCritical = foundIncidents.some(incident => incident.severity === 'high')
+    const isCritical = foundIncidents.some(incident => incident.severity === 'critical')
     const isModerate = !isCritical && foundIncidents.some(incident => incident.severity === 'moderate')
     const isLow = !isCritical && !isModerate
     let color = '#e8e1a7' // default color
