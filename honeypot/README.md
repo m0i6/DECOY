@@ -1,7 +1,3 @@
-# SSH Honeypot (pre‑auth) + Probe
-
-Safe, pre‑authentication SSH honeypot that only sends a banner and reads a small amount of data (no credential harvesting). Alerts are sent via HTTP POST. `probe.py` lets you emulate common attacker fingerprints by sending custom SSH identification lines.
-
 
 ## Files
 - `honeypot.py`: TCP server that sends an SSH banner, reads up to `READ_LIMIT` bytes, classifies the client, and closes.
