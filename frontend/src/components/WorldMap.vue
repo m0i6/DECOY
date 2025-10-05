@@ -28,10 +28,10 @@ const emit = defineEmits(['update-geolocation'])
 const createCustomMarker = (color: string) => {
   const el = document.createElement('div')
   el.innerHTML = `
-    <svg width="200" height="200" viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="5" fill="${color}"/>
-      <circle cx="100" cy="100" r="100" fill="${color}" opacity="0.2">
-        <animate attributeName="r" from="15" to="100" dur="1.5s" repeatCount="indefinite" />
+    <svg width="150" height="150" viewBox="0 0 150 150">
+      <circle cx="75" cy="75" r="5" fill="${color}"/>
+      <circle cx="75" cy="75" r="100" fill="${color}" opacity="0.2">
+        <animate attributeName="r" from="15" to="75" dur="1.5s" repeatCount="indefinite" />
         <animate attributeName="opacity" from="0.2" to="0" dur="1.5s" repeatCount="indefinite" />
       </circle>
     </svg>`
@@ -40,6 +40,8 @@ const createCustomMarker = (color: string) => {
 }
 
 const deleteAllMarkers = () => {
+  const markerElements = document.querySelectorAll('.custom-marker')
+  markerElements.forEach(el => el.parentNode?.removeChild(el))
   markers.value.forEach(marker => marker.remove())
   markers.value = []
 }
@@ -138,10 +140,10 @@ const setupStaticMap = async () => {
     const isCritical = foundIncidents.some(incident => incident.severity === 'critical')
     const isModerate = !isCritical && foundIncidents.some(incident => incident.severity === 'moderate')
     const isLow = !isCritical && !isModerate
-    let color = '#e8e1a7' // default color
+    let color = '#f8f1f7' // default color
     if (isCritical) color = '#ff4c4c' // red for critical
     else if (isModerate) color = '#ffa500' // orange for moderate
-    else if (isLow) color = '#ffff66' // yellow for low
+    else if (isLow) color = '#f5f6f0' // yellow for low
     console.log(`Adding marker for honeypot ${honeypot.name} at ${honeypot.geolocation} with color ${color} (incidents: ${foundIncidents.length}) iscritical: ${isCritical}, isModerate: ${isModerate}, isLow: ${isLow}`)
     new maplibregl.Marker({ element: createCustomMarker(color) })
       .setLngLat([lon || 0, lat || 0])

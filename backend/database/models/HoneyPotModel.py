@@ -8,7 +8,7 @@ class ServerCategoryType(TypeDecorator):
     impl = String(20)
 
     def process_bind_param(self, value, dialect):
-        allowed = {'web', 'database', 'sftp', 'other'}
+        allowed = {'web', 'database', 'dns', 'telnet', 'rdp', 'iot', 'email', 'api', 'sftp', 'ssh', 'scada', 'ftp', 'other'}
         if value is not None and value not in allowed:
             raise ValueError(f"Invalid server category: {value}")
         return value
