@@ -8,6 +8,7 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { getHoneypots } from '../backendProxy'
 import type { HoneypotType, IncidentLogType } from '../types'
+import { BACKEND_ROOT_URL } from "../config"
 
 const mapContainer = ref(null)
 let map: maplibregl.Map | null = null
@@ -47,7 +48,7 @@ onMounted(async () => {
   // poll for incidents every minute
   setInterval(async () => {
     try {
-      const newIncidents = await fetch('api/IncidentLogs/').then(res => res.json())
+      const newIncidents = await fetch(BACKEND_ROOT_URL + '/IncidentLogs/').then(res => res.json())
       if (JSON.stringify(newIncidents) !== JSON.stringify(incidents.value)) {
         incidents.value = newIncidents
         console.log('Updated incidents:', incidents.value)

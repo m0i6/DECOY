@@ -3,8 +3,7 @@ import socket, sys, time
 
 host = sys.argv[1]
 port = int(sys.argv[2])
-honeypot_id = sys.argv[3]
-ident = (sys.argv[4] if len(sys.argv) > 4 else "SSH-2.0-Paramiko_2.11.0") + "\r\n"
+ident = (sys.argv[3] if len(sys.argv) > 3 else "SSH-2.0-Paramiko_2.11.0") + "\r\n"
 
 s = socket.create_connection((host, port), timeout=3)
 # read the server banner (optional)
