@@ -3,12 +3,12 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <div id="app" class="h-screen flex flex-col bg-[#121313]">
+  <div id="app" class="min-h-full flex flex-col bg-[#121313]">
     <!-- Row 1: Navbar -->
     <Navbar />
 
     <!-- Row 2: Main Content -->
-    <div class="flex flex-1">
+    <div class="flex flex-1 ">
       <router-view></router-view> 
     </div>
   </div>

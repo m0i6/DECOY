@@ -28,10 +28,10 @@ const emit = defineEmits(['update-geolocation'])
 const createCustomMarker = (color: string) => {
   const el = document.createElement('div')
   el.innerHTML = `
-    <svg width="200" height="200" viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="5" fill="${color}"/>
-      <circle cx="100" cy="100" r="100" fill="${color}" opacity="0.2">
-        <animate attributeName="r" from="15" to="100" dur="1.5s" repeatCount="indefinite" />
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="5" fill="${color}"/>
+      <circle cx="50" cy="50" r="50" fill="${color}" opacity="0.2">
+        <animate attributeName="r" from="15" to="50" dur="1.5s" repeatCount="indefinite" />
         <animate attributeName="opacity" from="0.2" to="0" dur="1.5s" repeatCount="indefinite" />
       </circle>
     </svg>`
@@ -40,13 +40,15 @@ const createCustomMarker = (color: string) => {
 }
 
 const deleteAllMarkers = () => {
+  const markerElements = document.querySelectorAll('.custom-marker')
+  markerElements.forEach(el => el.parentNode?.removeChild(el))
   markers.value.forEach(marker => marker.remove())
   markers.value = []
 }
 
 onMounted(async () => {
   // poll for incidents every minute
-  setInterval(async () => {
+  const pollIncidents = async () => {
     try {
       const newIncidents = await fetch(BACKEND_ROOT_URL + '/IncidentLogs/').then(res => res.json())
       if (JSON.stringify(newIncidents) !== JSON.stringify(incidents.value)) {
@@ -56,12 +58,14 @@ onMounted(async () => {
     } catch (err) {
       console.error('Failed to fetch incidents:', err)
     }
-  }, 2000) // 2000 ms = 2 seconds
+  }
+  pollIncidents()
+  setInterval(pollIncidents, 1000)
 })
 
 // setup polling to update honeypot markers every minute
 onMounted(() => {
-  setInterval(async () => {
+  const updateHoneypots = async () => {
     if (!map || props.hasDynamicInput) return
 
     // Fetch and add new honeypot markers
@@ -83,16 +87,20 @@ onMounted(() => {
       existingMarkers[0].parentNode?.removeChild(existingMarkers[0])
     }
 
-  }, 1500) // 1000 ms = 1 second
+  }
+  updateHoneypots()
+  setInterval(updateHoneypots, 1000) // every second
 })
 
 onMounted(async () => {
   map = new maplibregl.Map({
     container: mapContainer.value || '',
     style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
-    zoom: 1.5
+    zoom: 3.5,
+    center: [10, 35], // starting position [lng, lat]
+
   })
-  map.addControl(new maplibregl.NavigationControl(), 'top-right')
+  map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
   map.addControl(new maplibregl.ScaleControl(), 'bottom-right')
   // Optional: add a geolocate control
   geolocateControl = new maplibregl.GeolocateControl({
@@ -138,10 +146,10 @@ const setupStaticMap = async () => {
     const isCritical = foundIncidents.some(incident => incident.severity === 'critical')
     const isModerate = !isCritical && foundIncidents.some(incident => incident.severity === 'moderate')
     const isLow = !isCritical && !isModerate
-    let color = '#e8e1a7' // default color
+    let color = '#f8f1f7' // default color
     if (isCritical) color = '#ff4c4c' // red for critical
     else if (isModerate) color = '#ffa500' // orange for moderate
-    else if (isLow) color = '#ffff66' // yellow for low
+    else if (isLow) color = '#f5f6f0' // yellow for low
     console.log(`Adding marker for honeypot ${honeypot.name} at ${honeypot.geolocation} with color ${color} (incidents: ${foundIncidents.length}) iscritical: ${isCritical}, isModerate: ${isModerate}, isLow: ${isLow}`)
     new maplibregl.Marker({ element: createCustomMarker(color) })
       .setLngLat([lon || 0, lat || 0])

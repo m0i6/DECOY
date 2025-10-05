@@ -16,22 +16,10 @@ class SeverityType(TypeDecorator):
     def process_result_value(self, value, dialect):
         return value
 
-class CategoryType(TypeDecorator):
-    impl = String(20)
-
-    def process_bind_param(self, value, dialect):
-        allowed = {'network', 'hardware', 'software', 'other'}
-        if value is not None and value not in allowed:
-            raise ValueError(f"Invalid category: {value}")
-        return value
-
-    def process_result_value(self, value, dialect):
-        return value
-
 class IncidentLogModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(80), nullable=False)
-    category = db.Column(CategoryType, nullable=True, default='other')
+    category = db.Column(db.String(80), nullable=True, default='other')
     description = db.Column(db.String(200), nullable=True, default="No description provided")
     timestamp = db.Column(db.DateTime, nullable=True, default=db.func.current_timestamp())
     severity = db.Column(SeverityType, nullable=True, default='low')

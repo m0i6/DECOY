@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { HoneypotType } from "../types"
 defineProps<{ honeypot: HoneypotType }>()
+
+const emit = defineEmits(['close'])
+
 </script>
 
 <template>
@@ -32,8 +35,17 @@ defineProps<{ honeypot: HoneypotType }>()
     <div v-if="honeypot.behaviors" class="mb-4">
       <h3 class="text-sm text-slate-400 uppercase tracking-wide mb-1">Behaviors</h3>
       <ul class="list-disc list-inside space-y-1 text-slate-200">
-        <li v-for="(b, i) in honeypot.behaviors" :key="i">{{ b }}</li>
+        <li v-for="(b, i) in honeypot.behaviors.split(',')" :key="i">{{ b }}</li>
       </ul>
+    </div>
+
+    <!-- button for closing -->
+    <div class="absolute top-4 right-4">
+      <button @click="$emit('close')" class="text-slate-400 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
   </div>
 </template>

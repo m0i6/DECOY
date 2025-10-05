@@ -25,7 +25,7 @@ function selectSensor(h: HoneypotType) {
 
 <template>
   <div class="bg-[#121313] h-full p-4">
-    <h2 class="text-lg font-semibold text-[#EFE6A1] mb-4">Honeypots</h2>
+    <h2 class="text-xl font-semibold text-amber-200 mb-4">Honeypots</h2>
 
     <!-- Searchbar -->
     <div class="relative mb-4">
@@ -34,10 +34,10 @@ function selectSensor(h: HoneypotType) {
         type="text"
         placeholder="Search..."
         class="w-full bg-[#1a1a1a] text-slate-200 rounded-full pl-10 pr-4 py-2
-               border border-slate-500 focus:outline-none focus:ring-2 focus:ring-[#EFE6A1]"
+               border border-[#464746] focus:outline-none focus:ring-2 focus:ring-[#EFE6A1]"
       />
       <svg
-        class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+        class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-[#464746] pointer-events-none"
         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 3a7.5 7.5 0 006.15 13.65z"/>
