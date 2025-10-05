@@ -10,6 +10,11 @@ const selectedHoneypot = ref<HoneypotType | null>(null)
 function handleSensorSelected(honeypot: HoneypotType) {
   selectedHoneypot.value = honeypot
 }
+
+function closeDetails() {
+  selectedHoneypot.value = null
+}
+
 </script>
 
 <template>
@@ -25,7 +30,7 @@ function handleSensorSelected(honeypot: HoneypotType) {
 
       <!-- Details Overlay -->
       <div v-if="selectedHoneypot" class="fixed top-20 bottom-10 right-10 w-96 z-40">
-        <HoneypotDetails :honeypot="selectedHoneypot" />
+        <HoneypotDetails :honeypot="selectedHoneypot" @close="closeDetails" />
       </div>
 
       <!-- KPI Overlay -->

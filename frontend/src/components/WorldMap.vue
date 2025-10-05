@@ -28,10 +28,10 @@ const emit = defineEmits(['update-geolocation'])
 const createCustomMarker = (color: string) => {
   const el = document.createElement('div')
   el.innerHTML = `
-    <svg width="150" height="150" viewBox="0 0 150 150">
-      <circle cx="75" cy="75" r="5" fill="${color}"/>
-      <circle cx="75" cy="75" r="100" fill="${color}" opacity="0.2">
-        <animate attributeName="r" from="15" to="75" dur="1.5s" repeatCount="indefinite" />
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="5" fill="${color}"/>
+      <circle cx="50" cy="50" r="50" fill="${color}" opacity="0.2">
+        <animate attributeName="r" from="15" to="50" dur="1.5s" repeatCount="indefinite" />
         <animate attributeName="opacity" from="0.2" to="0" dur="1.5s" repeatCount="indefinite" />
       </circle>
     </svg>`
@@ -48,7 +48,7 @@ const deleteAllMarkers = () => {
 
 onMounted(async () => {
   // poll for incidents every minute
-  setInterval(async () => {
+  const pollIncidents = async () => {
     try {
       const newIncidents = await fetch(BACKEND_ROOT_URL + '/IncidentLogs/').then(res => res.json())
       if (JSON.stringify(newIncidents) !== JSON.stringify(incidents.value)) {
@@ -58,12 +58,14 @@ onMounted(async () => {
     } catch (err) {
       console.error('Failed to fetch incidents:', err)
     }
-  }, 2000) // 2000 ms = 2 seconds
+  }
+  pollIncidents()
+  setInterval(pollIncidents, 1000)
 })
 
 // setup polling to update honeypot markers every minute
 onMounted(() => {
-  setInterval(async () => {
+  const updateHoneypots = async () => {
     if (!map || props.hasDynamicInput) return
 
     // Fetch and add new honeypot markers
@@ -85,18 +87,27 @@ onMounted(() => {
       existingMarkers[0].parentNode?.removeChild(existingMarkers[0])
     }
 
-  }, 1500) // 1000 ms = 1 second
+  }
+  updateHoneypots()
+  setInterval(updateHoneypots, 1000) // every second
 })
 
 onMounted(async () => {
   map = new maplibregl.Map({
     container: mapContainer.value || '',
-    style: "https://api.maptiler.com/maps/darkmatter/style.json?key=oMCNJnPX9vPcFLw6GzlB",
-    zoom: 1.5
+    style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+    zoom: 3.5,
+    center: [10, 35], // starting position [lng, lat]
+
   })
-  map.dragRotate.disable()
   map.addControl(new maplibregl.NavigationControl(), 'bottom-right')
-  map.addControl(new maplibregl.ScaleControl(), 'bottom-left')
+  map.addControl(new maplibregl.ScaleControl(), 'bottom-right')
+  // Optional: add a geolocate control
+  geolocateControl = new maplibregl.GeolocateControl({
+    positionOptions: { enableHighAccuracy: true },
+    trackUserLocation: true,
+  })
+  map.addControl(geolocateControl)
 })
 
 const setupDynamicInput = () => {
