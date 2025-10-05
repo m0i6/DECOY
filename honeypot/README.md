@@ -1,9 +1,4 @@
 
-## Files
-- `honeypot.py`: TCP server that sends an SSH banner, reads up to `READ_LIMIT` bytes, classifies the client, and closes.
-- `probe.py`: Tiny client that reads the server banner and sends a custom `SSH-2.0-...` identification line.
-
-
 ## Quick Start
 
 ### 1) Run the honeypot
@@ -18,7 +13,7 @@ export READ_LIMIT=1024
 export MAX_CONN_PER_MIN=60
 export TARPIT_SECONDS=0
 export BANNER="SSH-2.0-OpenSSH_8.9p1 Ubuntu-3"
-python3 honeypot.py
+python3 pot.py
 ```
 
 ### 2) Use the probe
