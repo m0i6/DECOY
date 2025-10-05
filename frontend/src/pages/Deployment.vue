@@ -79,7 +79,7 @@ function createHoneypot() {
 
 <template>
     <div class="min-h-screen w-full flex items-center justify-center text-white flex-col">
-        <div class="border-2 border-slate-600 p-10 rounded-lg ">
+        <div class="border-2 border-gray-300 p-10 rounded-lg ">
             <div class="flex flex-row gap-10">
                 <div>
                     <h1 class="text-2xl font-bold">Create new honeypot</h1>

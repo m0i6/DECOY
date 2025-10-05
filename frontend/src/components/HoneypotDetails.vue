@@ -15,33 +15,33 @@ const emit = defineEmits(['close'])
 
     <!-- Kategorie -->
     <div class="mb-4">
-      <h3 class="text-sm text-slate-400 uppercase tracking-wide mb-1">Kategorie</h3>
+      <h3 class="text-sm text-gray-300 uppercase tracking-wide mb-1">Kategorie</h3>
       <p class="text-base">{{ honeypot.server_category }}</p>
     </div>
 
     <!-- Creation Date -->
     <div class="mb-4">
-      <h3 class="text-sm text-slate-400 uppercase tracking-wide mb-1">Erstellt am</h3>
+      <h3 class="text-sm text-gray-300 uppercase tracking-wide mb-1">Erstellt am</h3>
       <p class="text-base">{{ new Date(honeypot.creation_date).toLocaleString() }}</p>
     </div>
 
      <!-- Beschreibung -->
     <div v-if="honeypot.description" class="mb-4">
-      <h3 class="text-sm text-slate-400 uppercase tracking-wide mb-1">Beschreibung</h3>
-      <p class="text-base text-slate-200">{{ honeypot.description }}</p>
+      <h3 class="text-sm text-gray-300 uppercase tracking-wide mb-1">Beschreibung</h3>
+      <p class="text-base text-gray-300">{{ honeypot.description }}</p>
     </div>
 
     <!-- Behaviors -->
     <div v-if="honeypot.behaviors" class="mb-4">
-      <h3 class="text-sm text-slate-400 uppercase tracking-wide mb-1">Behaviors</h3>
-      <ul class="list-disc list-inside space-y-1 text-slate-200">
+      <h3 class="text-sm text-gray-300 uppercase tracking-wide mb-1">Behaviors</h3>
+      <ul class="list-disc list-inside space-y-1 text-gray-300">
         <li v-for="(b, i) in honeypot.behaviors.split(',')" :key="i">{{ b }}</li>
       </ul>
     </div>
 
     <!-- button for closing -->
     <div class="absolute top-4 right-4">
-      <button @click="$emit('close')" class="text-slate-400 hover:text-white">
+      <button @click="$emit('close')" class="text-gray-300 hover:text-white">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>

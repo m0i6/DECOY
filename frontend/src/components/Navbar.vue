@@ -9,16 +9,16 @@
 
     <!-- Right: Navigation -->
     <!-- <div class="hidden md:flex items-center space-x-6">
-      <router-link to="/" class="text-slate-300 hover:text-white">Dashboard</router-link>
-      <router-link to="/deployment" class="text-slate-300 hover:text-white">Deploy</router-link>
-      <router-link to="/about" class="text-slate-300 hover:text-white">About</router-link>
+      <router-link to="/" class="text-gray-300 hover:text-white">Dashboard</router-link>
+      <router-link to="/deployment" class="text-gray-300 hover:text-white">Deploy</router-link>
+      <router-link to="/about" class="text-gray-300 hover:text-white">About</router-link>
     </div> -->
 
     <!-- Right: Actions -->
     <div class="flex items-center space-x-4">
       <button
         @click="navigateToDeployment"
-        class="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold text-sm"
+        class="px-3 py-1.5 rounded-lg bg-yellow-200 hover:bg-yellow-300 text-gray-300 font-semibold text-sm"
       >
         Deploy
       </button>
