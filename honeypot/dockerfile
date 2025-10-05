@@ -1,0 +1,23 @@
+# docker build -t jafber/decoy-backend .
+# docker run --rm -p 5000:5000 -t jafber/decoy-backend
+
+FROM python:3.12 AS honeypot
+RUN apt-get update
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+RUN python setup_database.py
+
+
+ENV HONEYPOT_ID=test123
+ENV CENTRAL_ALERT_URL=http://localhost:5000/IncidentLogs/
+ENV LISTEN_PORT=2222
+
+EXPOSE 2222
+
+CMD ["python3", "pot.py"]
