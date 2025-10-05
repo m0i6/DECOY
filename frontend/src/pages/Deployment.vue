@@ -3,6 +3,7 @@ import WorldMap from '../components/WorldMap.vue'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { BACKEND_ROOT_URL } from "./config"
 
 const name = ref<String>('')
 const serverType = ref<String>('ssh server')
@@ -53,7 +54,7 @@ function createHoneypot() {
         return
     }
     // Logik zum Erstellen des Honeypots
-    fetch('api/HoneyPots/', {
+    fetch(BACKEND_ROOT_URL + '/HoneyPots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
